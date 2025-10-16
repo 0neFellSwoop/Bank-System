@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'idea'
-    id 'jacoco'
 }
 
 group 'org.example'
@@ -21,11 +20,3 @@ test {
         events "passed", "skipped", "failed"
     }
 }
-
-jacocoTestReport {
-  reports {
-    xml.required = true
-    xml.destination = project.file("builds/jacoco/jacoco.xml")
-  }
-}
-
