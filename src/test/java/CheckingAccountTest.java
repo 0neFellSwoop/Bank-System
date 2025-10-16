@@ -1,0 +1,21 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class CheckingAccountTest {
+
+    CheckingAccount checkingAccount;
+    double APR = 6.5;
+
+    @BeforeEach
+    public void setUp(){
+        checkingAccount = new CheckingAccount(APR);
+
+    }
+
+    @Test
+    public void create_checking_account_with_zero_balance(){
+        assertEquals(0, checkingAccount.getBalance());
+    }
+}
