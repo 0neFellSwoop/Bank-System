@@ -33,4 +33,15 @@ public class CreateValidatorTest {
         boolean actual = validator.validate(command);
         assertFalse(actual);
     }
+
+    @Test
+    void invalid_account_type(){
+        command = "create secret 12345678 0.4".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+
+    }
+
+
+
 }
