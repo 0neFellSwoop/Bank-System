@@ -1,6 +1,11 @@
 public class Validator {
 
-    private final CreateValidator CREATE_VALIDATOR = new CreateValidator();
+
+    private final CreateValidator CREATE_VALIDATOR;
+
+    public Validator() {
+        CREATE_VALIDATOR = new CreateValidator();
+    }
 
     public boolean validate(String command) {
         if(command == null){
