@@ -7,13 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CreateValidatorTest {
 
     String[] command;
-    CreateValidator validator;
-
-
-    @BeforeEach
-    void setUp(){
-        validator = new CreateValidator();
-    }
+    CreateValidator validator = new CreateValidator();
 
     @Test
     void missing_account_type_in_command(){
@@ -111,6 +105,41 @@ public class CreateValidatorTest {
         command = "create checking 12345678 0".split(" ");
         boolean actual = validator.validate(command);
         assertTrue(actual);
+    }
+
+    @Test
+    void CD_account_missing_inital_deposit(){
+        command = "create CD 12345678 6.9".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
+    void no_negative_CD_account_inital_amounts(){
+        command = "create CD 12345678 6.9 -21".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
+    void too_small_CD_account_inital_amount(){
+        command = "create CD 12345678 6.9 500".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
+    void too_large_CD_account_inital_amount(){
+        command = "create CD 12345678 6.9 10004".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
+    void CD_account_inital_amount_not_a_number(){
+        command = "create CD 12345678 6.9 xyz".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
     }
 
 }
