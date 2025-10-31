@@ -1,7 +1,7 @@
 public class CreateValidator {
 
 
-    public static boolean validate(String[] parsedCommand) {
+    public boolean validate(String[] parsedCommand) {
         if(parsedCommand.length < 4){
             return false;
         }
@@ -35,7 +35,7 @@ public class CreateValidator {
     }
 
     private static boolean validateCD(String[] parsedCommand) {
-        if(parsedCommand.length < 5){
+        if(parsedCommand.length != 5){
             return false;
         }
         double initial;

@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 public class Validator {
 
     private final CreateValidator CREATE_VALIDATOR;
@@ -11,7 +13,7 @@ public class Validator {
             return false;
         }
         String[] parsedCommand = command.split(" ");
-        String type = parsedCommand[0];
+        String type = parsedCommand[0].toLowerCase();
         if(!(type.equals("create") || type.equals("deposit"))) {
             return false;
         }

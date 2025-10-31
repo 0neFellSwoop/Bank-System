@@ -1,7 +1,7 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorTest {
 
@@ -27,6 +27,13 @@ public class ValidatorTest {
         command = "craete checking 12345678 0.4";
         boolean actual = validator.validate(command);
         assertFalse(actual);
+    }
+
+    @Test
+    void command_type_is_case_insensitive(){
+        command = "creaTE checking 12345678 0.4";
+        boolean actual = validator.validate(command);
+        assertTrue(actual);
     }
 
 }

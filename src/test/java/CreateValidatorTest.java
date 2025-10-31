@@ -142,4 +142,28 @@ public class CreateValidatorTest {
         assertFalse(actual);
     }
 
+    @Test
+    void invalid_CD_creation_with_too_many_arguments(){
+        command = "create CD 12345678 6.9 5000 xyz".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
+    void create_CD_account(){
+        command = "create CD 12345678 6.9 5000".split(" ");
+        boolean actual = validator.validate(command);
+        assertTrue(actual);
+    }
+
+    @Test
+    void create_command_is_case_insensitive(){
+        command = "create CheCkINg 12345678 6.9".split(" ");
+        boolean actual = validator.validate(command);
+        assertTrue(actual);
+    }
+
+
+
+
 }
