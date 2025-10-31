@@ -7,7 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CreateValidatorTest {
 
     String[] command;
-    CreateValidator validator = new CreateValidator();
+    CreateValidator validator;
+
+    @BeforeEach
+    void setUp(){
+        validator = new CreateValidator();
+    }
 
     @Test
     void missing_account_type_in_command(){
@@ -163,7 +168,41 @@ public class CreateValidatorTest {
         assertTrue(actual);
     }
 
+    @Test
+    void cannot_create_checking_with_intial_amount(){
+        command = "create checking 12345678 6.9 5000".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+    }
 
+    @Test
+    void cannot_create_savings_with_intial_amount(){
+        command = "create savings 12345678 6.9 5000".split(" ");
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+    }
 
+    @Test
+    void create_savings_account(){
+        command = "create savings 12345678 3.6".split(" ");
+        boolean actual = validator.validate(command);
+        assertTrue(actual);
+    }
+
+    @Test
+    void create_checking_account(){
+        command = "create checking 12345678 0.5".split(" ");
+        boolean actual = validator.validate(command);
+        assertTrue(actual);
+    }
+
+    @Test
+    void no_duplicate_ID_numbers(){
+        command = "create checking 12345678 0.5".split(" ");
+        String[] command2 = "create checking 12345678 0.5".split(" ");
+        validator.validate(command);
+        boolean actual = validator.validate(command2);
+        assertFalse(actual);
+    }
 
 }

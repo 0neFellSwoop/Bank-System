@@ -1,5 +1,8 @@
+import java.util.ArrayList;
+
 public class CreateValidator {
 
+    private final ArrayList<String> IDs = new ArrayList<>();
 
     public boolean validate(String[] parsedCommand) {
         if(parsedCommand.length < 4){
@@ -12,7 +15,7 @@ public class CreateValidator {
         } catch (NumberFormatException e) {
             return false;
         }
-        if(ID.length() != 8){
+        if(ID.length() != 8 || IDs.contains(ID)){
             return false;
         }
         double APR;
@@ -26,15 +29,15 @@ public class CreateValidator {
         }
         String account = parsedCommand[1].toUpperCase();
         if(account.equals("CHECKING") || account.equals("SAVINGS")){
-            return CreateValidator.validateCheckingOrSavings(parsedCommand);
+            return this.validateCheckingOrSavings(parsedCommand);
         }
         else if (account.equals("CD")){
-            return CreateValidator.validateCD(parsedCommand);
+            return this.validateCD(parsedCommand);
         }
         return false;
     }
 
-    private static boolean validateCD(String[] parsedCommand) {
+    private boolean validateCD(String[] parsedCommand) {
         if(parsedCommand.length != 5){
             return false;
         }
@@ -47,10 +50,15 @@ public class CreateValidator {
         if(initial < 1000 || initial > 10000){
             return false;
         }
+        IDs.add(parsedCommand[2]);
         return true;
     }
 
-    private static boolean validateCheckingOrSavings(String[] parsedCommand) {
+    private boolean validateCheckingOrSavings(String[] parsedCommand) {
+        if(parsedCommand.length != 4){
+            return false;
+        }
+        IDs.add(parsedCommand[2]);
         return true;
     }
 }
