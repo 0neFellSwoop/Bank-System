@@ -1,11 +1,16 @@
 public class Validator {
+
+    private final CreateValidator CREATE_VALIDATOR = new CreateValidator();
+
     public boolean validate(String command) {
         String[] parsedCommand = command.split(" ");
         String type = parsedCommand[0];
-        if(!(type.equals("create") || type.equals("deposit"))){
+        if(!(type.equals("create") || type.equals("deposit"))) {
             return false;
         }
-        String ID = parsedCommand[2];
-        return ID.length() == 8;
+        if(type.equals("create")){
+            return CREATE_VALIDATOR.validate(parsedCommand);
+        }
+        return true;
     }
 }

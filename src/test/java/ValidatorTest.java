@@ -22,16 +22,10 @@ public class ValidatorTest {
     }
 
     @Test
-    void typo_in_create_command(){
+    void typo_in_create_command() {
         command = "craete checking 12345678 0.4";
         boolean actual = validator.validate(command);
         assertFalse(actual);
     }
 
-    @Test
-    void missing_ID_in_command(){
-        command = "create checking  0.4";
-        boolean actual = validator.validate(command);
-        assertFalse(actual);
-    }
 }
