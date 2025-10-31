@@ -11,7 +11,13 @@ public class ValidatorTest {
     @BeforeEach
     void setUp(){
         validator = new Validator();
+    }
 
+    @Test
+    void missing_command(){
+        command = null;
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
     }
 
     @Test

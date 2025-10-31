@@ -3,6 +3,9 @@ public class Validator {
     private final CreateValidator CREATE_VALIDATOR = new CreateValidator();
 
     public boolean validate(String command) {
+        if(command == null){
+            return false;
+        }
         String[] parsedCommand = command.split(" ");
         String type = parsedCommand[0];
         if(!(type.equals("create") || type.equals("deposit"))) {
