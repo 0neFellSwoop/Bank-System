@@ -8,16 +8,17 @@ public class ValidatorTest {
 
     String command;
     Validator validator;
+    Bank BANK;
 
     @BeforeEach
     void setUp(){
-        validator = new Validator();
+        BANK = new Bank();
+        validator = new Validator(BANK);
     }
 
     @Test
     void missing_command(){
-        command = null;
-        boolean actual = validator.validate(command);
+        boolean actual = validator.validate(null);
         assertFalse(actual);
     }
 

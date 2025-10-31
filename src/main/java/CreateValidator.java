@@ -2,26 +2,19 @@ import java.util.ArrayList;
 
 public class CreateValidator {
 
-    private final ArrayList<String> IDs = new ArrayList<>();
-
-    public boolean validate(String[] parsedCommand) {
+    public boolean validate(String[] parsedCommand, Bank bank) {
         if(parsedCommand.length < 4){
             return false;
         }
-
         String ID = parsedCommand[2];
-        try {
-            Integer.parseInt(ID);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        if(ID.length() != 8 || IDs.contains(ID)){
-            return false;
-        }
         double APR;
         try {
+            Integer.parseInt(ID);
             APR = Double.parseDouble(parsedCommand[3]);
         } catch (NumberFormatException e) {
+            return false;
+        }
+        if(ID.length() != 8 || bank.retrieveAccount(ID) != null){
             return false;
         }
         if(APR < 0 || APR > 10){
@@ -50,7 +43,6 @@ public class CreateValidator {
         if(initial < 1000 || initial > 10000){
             return false;
         }
-        IDs.add(parsedCommand[2]);
         return true;
     }
 
@@ -58,7 +50,6 @@ public class CreateValidator {
         if(parsedCommand.length != 4){
             return false;
         }
-        IDs.add(parsedCommand[2]);
         return true;
     }
 }
