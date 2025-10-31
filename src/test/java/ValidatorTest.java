@@ -6,12 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class ValidatorTest {
 
     String command;
-    Validator validator;
-
-    @BeforeEach
-    void setUp(){
-        validator = new Validator();
-    }
+    Validator validator = new Validator();
 
     @Test
     void missing_command(){
