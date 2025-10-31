@@ -1,7 +1,7 @@
 public class CreateValidator {
 
 
-    public boolean validate(String[] parsedCommand) {
+    public static boolean validate(String[] parsedCommand) {
         if(parsedCommand.length < 4){
             return false;
         }
@@ -25,9 +25,20 @@ public class CreateValidator {
             return false;
         }
         String account = parsedCommand[1].toUpperCase();
-        if(!(account.equals("CHECKING") || account.equals("SAVINGS") || account.equals("CD"))){
-            return false;
+        if(account.equals("CHECKING") || account.equals("SAVINGS")){
+            return CreateValidator.validateCheckingOrSavings();
         }
+        else if (account.equals("CD")){
+            return CreateValidator.validateCD();
+        }
+        return false;
+    }
+
+    private static boolean validateCD() {
+        return true;
+    }
+
+    private static boolean validateCheckingOrSavings() {
         return true;
     }
 }
