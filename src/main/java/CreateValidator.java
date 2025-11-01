@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class CreateValidator {
 
     public boolean validate(String[] parsedCommand, Bank bank) {
@@ -40,16 +38,10 @@ public class CreateValidator {
         } catch (NumberFormatException e) {
             return false;
         }
-        if(initial < 1000 || initial > 10000){
-            return false;
-        }
-        return true;
+        return !(initial < 1000) && !(initial > 10000);
     }
 
     private boolean validateCheckingOrSavings(String[] parsedCommand) {
-        if(parsedCommand.length != 4){
-            return false;
-        }
-        return true;
+        return parsedCommand.length == 4;
     }
 }
