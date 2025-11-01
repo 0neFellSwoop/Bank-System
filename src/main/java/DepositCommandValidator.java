@@ -1,4 +1,4 @@
-public class DepositValidator {
+public class DepositCommandValidator {
 
 
     public boolean validate(String[] parsedCommand, Bank bank) {

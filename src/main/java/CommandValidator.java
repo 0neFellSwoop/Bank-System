@@ -1,13 +1,13 @@
-public class Validator {
+public class CommandValidator {
 
-    private final CreateValidator CREATE_VALIDATOR;
-    private final DepositValidator DEPOSIT_VALIDATOR;
-    private Bank BANK;
+    private final CreateCommandValidator CREATE_VALIDATOR;
+    private final DepositCommandValidator DEPOSIT_VALIDATOR;
+    private final Bank BANK;
 
-    public Validator(Bank bank) {
+    public CommandValidator(Bank bank) {
         this.BANK = bank;
-        CREATE_VALIDATOR = new CreateValidator();
-        DEPOSIT_VALIDATOR = new DepositValidator();
+        CREATE_VALIDATOR = new CreateCommandValidator();
+        DEPOSIT_VALIDATOR = new DepositCommandValidator();
     }
 
     public boolean validate(String command) {

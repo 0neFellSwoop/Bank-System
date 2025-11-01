@@ -1,4 +1,4 @@
-public class CreateValidator {
+public class CreateCommandValidator{
 
     public boolean validate(String[] parsedCommand, Bank bank) {
         if(parsedCommand.length < 4){

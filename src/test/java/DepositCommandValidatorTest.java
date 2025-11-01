@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class DepositValidatorTest {
+public class DepositCommandValidatorTest {
 
     String[] command;
-    DepositValidator validator;
+    DepositCommandValidator validator;
     Bank BANK;
     Account CHECKING_ACCOUNT;
     Account CD_ACCOUNT;
@@ -22,7 +22,7 @@ public class DepositValidatorTest {
         BANK.addAccount(CHECKING_ACCOUNT);
         BANK.addAccount(SAVINGS_ACCOUNT);
         BANK.addAccount(CD_ACCOUNT);
-        validator = new DepositValidator();
+        validator = new DepositCommandValidator();
     }
 
     @Test

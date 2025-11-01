@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CreateValidatorTest {
+public class CreateCommandValidatorTest {
 
     String[] command;
-    CreateValidator validator;
+    CreateCommandValidator validator;
     Bank BANK;
     Account account;
 
@@ -16,7 +16,7 @@ public class CreateValidatorTest {
         BANK = new Bank();
         account = new CheckingAccount(0.5);
         BANK.addAccount(account);
-        validator = new CreateValidator();
+        validator = new CreateCommandValidator();
     }
 
     @Test
