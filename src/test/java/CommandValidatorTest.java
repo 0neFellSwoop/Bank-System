@@ -44,6 +44,13 @@ public class CommandValidatorTest {
     }
 
     @Test
+    void typo_in_deposit_command(){
+        command = "deepsoit 12345678 454";
+        boolean actual = validator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
     void command_type_is_case_insensitive(){
         command = "creaTE checking 12345678 0.4";
         boolean actual = commandValidator.validate(command);
