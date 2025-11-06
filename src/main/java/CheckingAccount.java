@@ -4,4 +4,9 @@ public class CheckingAccount extends Account{
         super(APR, 0);
     }
 
+
+    @Override
+    public String getType() {
+        return "Checking";
+    }
 }

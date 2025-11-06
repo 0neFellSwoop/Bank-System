@@ -18,7 +18,7 @@ public class Bank {
     }
 
     public Account retrieveAccount(String id){
-        return accounts.get(id);
+        return accounts.getOrDefault(id, null);
     }
 
     public void deposit(String id, double depositAmount) {
