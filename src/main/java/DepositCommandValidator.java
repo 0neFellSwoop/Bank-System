@@ -6,7 +6,7 @@ public class DepositCommandValidator {
             return false;
         }
         String ID = parsedCommand[1];
-        if(bank.retrieveAccount(ID).getType().equals("CD")){
+        if(bank.retrieveAccount(ID) == null || bank.retrieveAccount(ID).getType().equals("CD")){
             return false;
         }
         double amount;

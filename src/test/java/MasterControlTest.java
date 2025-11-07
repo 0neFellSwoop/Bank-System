@@ -62,4 +62,23 @@ public class MasterControlTest {
         assertSingleCommand("create checking 12345678 1.0", actual);
     }
 
+    @Test
+    void valid_to_create_accounts_with_different_ID(){
+        input.add("create checking 12345678 1.0");
+        input.add("create savings 21345678 1.0");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals(0, actual.size());
+    }
+
+    @Test
+    void invalid_to_deposit_to_nonexistant_account(){
+        input.add("deposit 12345678 100");
+
+        List<String> actual = masterControl.start(input);
+
+        assertSingleCommand("deposit 12345678 100", actual);
+    }
+
 }
