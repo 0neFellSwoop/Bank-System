@@ -11,7 +11,7 @@ public class CDAccountTest {
 
     @BeforeEach
     public void setUp(){
-        CDAccount = new CDAccount(APR, balance);
+        CDAccount = new CDAccount("12345678", APR, balance);
     }
 
     @Test

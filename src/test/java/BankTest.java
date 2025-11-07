@@ -2,14 +2,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BankTest {
 
     Bank bank;
     double APR = 9.9;
-    Account account = new CheckingAccount(APR);
+    Account account = new CheckingAccount("12345678", APR);
     String ID = account.getID();
-    Account account2 = new SavingsAccount(APR);
+    Account account2 = new SavingsAccount("12345679", APR);
     double AMOUNT = 55.43;
     double balance;
 
@@ -23,7 +24,7 @@ public class BankTest {
 
     @Test
     public void A_bank_is_created_with_no_accounts(){
-        assertEquals(true, new Bank().getAccounts().isEmpty());
+        assertTrue(new Bank().getAccounts().isEmpty());
     }
 
     @Test

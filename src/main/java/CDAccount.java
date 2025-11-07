@@ -1,7 +1,7 @@
 public class CDAccount extends Account {
 
-    public CDAccount(double APR, double balance) {
-        super(APR, balance);
+    public CDAccount(String ID, double APR, double balance) {
+        super(ID, APR, balance);
     }
 
     @Override

@@ -1,7 +1,7 @@
 public class SavingsAccount extends Account{
 
-    SavingsAccount(double APR){
-        super(APR, 0);
+    SavingsAccount(String ID, double APR){
+        super(ID, APR, 0);
     }
 
 

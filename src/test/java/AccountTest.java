@@ -2,7 +2,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class AccountTest {
 
@@ -13,7 +12,7 @@ public class AccountTest {
 
     @BeforeEach
     public void setUp(){
-        account = new CheckingAccount(APR);
+        account = new CheckingAccount("12345678", APR);
         account.deposit(50.00);
         balance = account.getBalance();
 
@@ -24,14 +23,18 @@ public class AccountTest {
         assertEquals(APR, account.getAPR());
     }
 
+    /*
+    Now handled by CommandValidator
+
     @Test
     public void each_account_has_unique_ID(){
-        Account account2 = new SavingsAccount(APR);
-        Account account3 = new SavingsAccount(APR);
+        Account account2 = new SavingsAccount("12345678", APR);
+        Account account3 = new SavingsAccount("12345678", APR);
         assertNotEquals(account.getID(), account2.getID());
         assertNotEquals(account2.getID(), account3.getID());
         assertNotEquals(account.getID(), account3.getID());
     }
+    */
 
     @Test
     public void balance_increases_by_amount_deposited_into_account(){

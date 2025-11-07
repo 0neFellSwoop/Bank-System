@@ -14,7 +14,7 @@ public class CreateCommandValidatorTest {
     @BeforeEach
     void setUp(){
         BANK = new Bank();
-        account = new CheckingAccount(0.5);
+        account = new CheckingAccount("11111111", 0.5);
         BANK.addAccount(account);
         validator = new CreateCommandValidator();
     }
