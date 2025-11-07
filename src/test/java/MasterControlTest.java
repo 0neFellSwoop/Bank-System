@@ -10,11 +10,12 @@ public class MasterControlTest {
 
     MasterControl masterControl;
     List<String> input;
+    Bank bank;
 
     @BeforeEach
     void setUp(){
         input = new ArrayList<>();
-        Bank bank = new Bank();
+        bank = new Bank();
         masterControl = new MasterControl(new CommandValidator(bank), new CommandProcessor(bank), new CommandStorage());
     }
 
@@ -63,6 +64,15 @@ public class MasterControlTest {
     }
 
     @Test
+    void valid_to_create_account(){
+        input.add("create cd 21345678 1.0 3000");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals(3000, bank.retrieveAccount("21345678").getBalance());
+    }
+
+    @Test
     void valid_to_create_accounts_with_different_ID(){
         input.add("create checking 12345678 1.0");
         input.add("create savings 21345678 1.0");
@@ -80,5 +90,17 @@ public class MasterControlTest {
 
         assertSingleCommand("deposit 12345678 100", actual);
     }
+
+    @Test
+    void valid_to_deposit_to_existing_account(){
+        input.add("create savings 12345678 1.0");
+        input.add("deposit 12345678 100");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals(100, bank.retrieveAccount("12345678").getBalance());
+    }
+
+
 
 }
