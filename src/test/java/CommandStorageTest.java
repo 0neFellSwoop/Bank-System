@@ -1,9 +1,7 @@
-package banking;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CommandStorageTest {
 
@@ -19,7 +17,7 @@ public class CommandStorageTest {
     void store_and_retrieve_an_invalid_command(){
         command = "invalidkbhihih";
         storage.addInvalidCommand(command);
-        Assertions.assertEquals(command, storage.getInvalidCommands().get(0));
+        assertEquals(command, storage.getInvalidCommands().get(0));
     }
 
     @Test
@@ -28,8 +26,8 @@ public class CommandStorageTest {
         String otherCommand = "crreeeeaaate account for mee";
         storage.addInvalidCommand(command);
         storage.addInvalidCommand(otherCommand);
-        Assertions.assertEquals(command, storage.getInvalidCommands().get(0));
-        Assertions.assertEquals(otherCommand, storage.getInvalidCommands().get(1));
+        assertEquals(command, storage.getInvalidCommands().get(0));
+        assertEquals(otherCommand, storage.getInvalidCommands().get(1));
     }
 
 }

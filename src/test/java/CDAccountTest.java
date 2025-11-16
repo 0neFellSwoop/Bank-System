@@ -1,9 +1,7 @@
-package banking;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CDAccountTest {
 
@@ -18,6 +16,6 @@ public class CDAccountTest {
 
     @Test
     public void create_CD_account_with_starting_balance(){
-        Assertions.assertEquals(balance, CDAccount.getBalance());
+        assertEquals(balance, CDAccount.getBalance());
     }
 }

@@ -1,11 +1,9 @@
-package banking;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommandStorage {
 
-    private final List<String> invalidCommands = new ArrayList<>();
+    private final List<String> invalidCommands = new ArrayList<String>();
 
     public void addInvalidCommand(String command) {
         invalidCommands.add(command);

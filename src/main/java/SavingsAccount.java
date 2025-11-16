@@ -1,5 +1,3 @@
-package banking;
-
 public class SavingsAccount extends Account{
 
     SavingsAccount(String ID, double APR){

@@ -1,10 +1,7 @@
-package banking;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 
 public class AccountTest {
 
@@ -27,12 +24,12 @@ public class AccountTest {
     }
 
     /*
-    Now handled by banking.CommandValidator
+    Now handled by CommandValidator
 
     @Test
     public void each_account_has_unique_ID(){
-        banking.Account account2 = new banking.SavingsAccount("12345678", APR);
-        banking.Account account3 = new banking.SavingsAccount("12345678", APR);
+        Account account2 = new SavingsAccount("12345678", APR);
+        Account account3 = new SavingsAccount("12345678", APR);
         assertNotEquals(account.getID(), account2.getID());
         assertNotEquals(account2.getID(), account3.getID());
         assertNotEquals(account.getID(), account3.getID());

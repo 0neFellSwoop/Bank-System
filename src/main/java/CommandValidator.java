@@ -1,5 +1,3 @@
-package banking;
-
 public class CommandValidator {
 
     private final CreateCommandValidator CREATE_VALIDATOR;
