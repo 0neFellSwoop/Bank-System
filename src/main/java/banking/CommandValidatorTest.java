@@ -1,8 +1,9 @@
+package banking;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CommandValidatorTest {
 
@@ -19,28 +20,28 @@ public class CommandValidatorTest {
     @Test
     void missing_command(){
         boolean actual = commandValidator.validate(null);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void invalid_command_type(){
         command = "blah";
         boolean actual = commandValidator.validate(command);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void typo_in_create_command() {
         command = "craete checking 12345678 0.4";
         boolean actual = commandValidator.validate(command);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void typo_in_deposit_command(){
         command = "deepsoit 12345678 454";
         boolean actual = commandValidator.validate(command);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
 
@@ -48,7 +49,7 @@ public class CommandValidatorTest {
     void command_type_is_case_insensitive(){
         command = "creaTE checking 12345678 0.4";
         boolean actual = commandValidator.validate(command);
-        assertTrue(actual);
+        Assertions.assertTrue(actual);
     }
 
 }

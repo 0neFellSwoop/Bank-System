@@ -1,7 +1,9 @@
+package banking;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CommandProcessorTest {
 
@@ -20,25 +22,25 @@ public class CommandProcessorTest {
     void create_checking_account(){
         command = "create checking 12345678 0.1";
         commandProcessor.process(command);
-        assertEquals("12345678", bank.retrieveAccount("12345678").getID());
-        assertEquals(0.1, bank.retrieveAccount("12345678").getAPR());
+        Assertions.assertEquals("12345678", bank.retrieveAccount("12345678").getID());
+        Assertions.assertEquals(0.1, bank.retrieveAccount("12345678").getAPR());
     }
 
     @Test
     void create_savings_account(){
         command = "create savings 12345678 4.1";
         commandProcessor.process(command);
-        assertEquals("12345678", bank.retrieveAccount("12345678").getID());
-        assertEquals(4.1, bank.retrieveAccount("12345678").getAPR());
+        Assertions.assertEquals("12345678", bank.retrieveAccount("12345678").getID());
+        Assertions.assertEquals(4.1, bank.retrieveAccount("12345678").getAPR());
     }
 
     @Test
     void create_cd_account(){
         command = "create cd 12345678 9.7 2000";
         commandProcessor.process(command);
-        assertEquals("12345678", bank.retrieveAccount("12345678").getID());
-        assertEquals(9.7, bank.retrieveAccount("12345678").getAPR());
-        assertEquals(2000, bank.retrieveAccount("12345678").getBalance());
+        Assertions.assertEquals("12345678", bank.retrieveAccount("12345678").getID());
+        Assertions.assertEquals(9.7, bank.retrieveAccount("12345678").getAPR());
+        Assertions.assertEquals(2000, bank.retrieveAccount("12345678").getBalance());
     }
 
     @Test
@@ -47,7 +49,7 @@ public class CommandProcessorTest {
         bank.addAccount(account);
         command = "deposit 12345678 500";
         commandProcessor.process(command);
-        assertEquals(500, bank.retrieveAccount("12345678").getBalance());
+        Assertions.assertEquals(500, bank.retrieveAccount("12345678").getBalance());
     }
 
     @Test
@@ -56,7 +58,7 @@ public class CommandProcessorTest {
         bank.addAccount(account);
         command = "deposit 12345678 1500";
         commandProcessor.process(command);
-        assertEquals(1500, bank.retrieveAccount("12345678").getBalance());
+        Assertions.assertEquals(1500, bank.retrieveAccount("12345678").getBalance());
     }
 
     @Test
@@ -66,7 +68,7 @@ public class CommandProcessorTest {
         command = "deposit 12345678 1500";
         commandProcessor.process(command);
         commandProcessor.process(command);
-        assertEquals(3000, bank.retrieveAccount("12345678").getBalance());
+        Assertions.assertEquals(3000, bank.retrieveAccount("12345678").getBalance());
     }
 
 }

@@ -1,10 +1,11 @@
+package banking;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MasterControlTest {
 
@@ -20,8 +21,8 @@ public class MasterControlTest {
     }
 
     private void assertSingleCommand(String command, List<String> actual){
-        assertEquals(1, actual.size());
-        assertEquals(command, actual.get(0));
+        Assertions.assertEquals(1, actual.size());
+        Assertions.assertEquals(command, actual.get(0));
     }
 
     @Test
@@ -48,9 +49,9 @@ public class MasterControlTest {
         input.add("depositt 12345678 100");
 
         List<String> actual = masterControl.start(input);
-        assertEquals(2, actual.size());
-        assertEquals("creat checking 12345678 1.6", actual.get(0));
-        assertEquals("depositt 12345678 100", actual.get(1));
+        Assertions.assertEquals(2, actual.size());
+        Assertions.assertEquals("creat checking 12345678 1.6", actual.get(0));
+        Assertions.assertEquals("depositt 12345678 100", actual.get(1));
     }
 
     @Test
@@ -69,7 +70,7 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals(3000, bank.retrieveAccount("21345678").getBalance());
+        Assertions.assertEquals(3000, bank.retrieveAccount("21345678").getBalance());
     }
 
     @Test
@@ -79,7 +80,7 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals(0, actual.size());
+        Assertions.assertEquals(0, actual.size());
     }
 
     @Test
@@ -98,7 +99,7 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals(100, bank.retrieveAccount("12345678").getBalance());
+        Assertions.assertEquals(100, bank.retrieveAccount("12345678").getBalance());
     }
 
 

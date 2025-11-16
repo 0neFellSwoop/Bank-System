@@ -1,8 +1,9 @@
+package banking;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DepositCommandValidatorTest {
 
@@ -29,98 +30,98 @@ public class DepositCommandValidatorTest {
     void deposit_command_is_case_insensitive(){
         command = new String[]{"dEpOsit", SAVINGS_ACCOUNT.getID(), "500"};
         boolean actual = validator.validate(command, BANK);
-        assertTrue(actual);
+        Assertions.assertTrue(actual);
     }
 
     @Test
     void cannot_deposit_negatives(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID(), "-450"};
         boolean actual = validator.validate(command, BANK);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void can_deposit_zero(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID(), "0"};
         boolean actual = validator.validate(command, BANK);
-        assertTrue(actual);
+        Assertions.assertTrue(actual);
     }
 
     @Test
     void cannot_deposit_letters(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID(), "adasd"};
         boolean actual = validator.validate(command, BANK);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void cannot_deposit_with_extra_arguments(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID(), "500", "123"};
         boolean actual = validator.validate(command, BANK);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void cannot_deposit_with_missing_ID(){
         command = new String[]{"deposit", "500"};
         boolean actual = validator.validate(command, BANK);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void cannot_deposit_with_missing_amount(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID()};
         boolean actual = validator.validate(command, BANK);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void cannot_deposit_into_CD(){
         command = new String[]{"deposit", CD_ACCOUNT.getID(), "500"};
         boolean actual = validator.validate(command, BANK);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void can_deposit_to_savings_account(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID(), "500"};
         boolean actual = validator.validate(command, BANK);
-        assertTrue(actual);
+        Assertions.assertTrue(actual);
     }
 
     @Test
     void can_deposit_to_checking(){
         command = new String[]{"deposit", CHECKING_ACCOUNT.getID(), "300"};
         boolean actual = validator.validate(command, BANK);
-        assertTrue(actual);
+        Assertions.assertTrue(actual);
     }
 
     @Test
     void cannot_deposit_too_much_into_savings_account(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID(), "2501"};
         boolean actual = validator.validate(command, BANK);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void cannot_deposit_too_much_into_checking_account(){
         command = new String[]{"deposit", CHECKING_ACCOUNT.getID(), "1001"};
         boolean actual = validator.validate(command, BANK);
-        assertFalse(actual);
+        Assertions.assertFalse(actual);
     }
 
     @Test
     void max_deposit_into_savings_account(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID(), "2500"};
         boolean actual = validator.validate(command, BANK);
-        assertTrue(actual);
+        Assertions.assertTrue(actual);
     }
 
     @Test
     void max_deposit_into_checking_account(){
         command = new String[]{"deposit", CHECKING_ACCOUNT.getID(), "1000"};
         boolean actual = validator.validate(command, BANK);
-        assertTrue(actual);
+        Assertions.assertTrue(actual);
     }
 
 }
