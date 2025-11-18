@@ -169,6 +169,20 @@ public class CreateCommandValidatorTest {
     }
 
     @Test
+    void maximum_initial_amount_for_CD_account(){
+        command = "create CD 12345678 6.9 10000".split(" ");
+        boolean actual = validator.validate(command, BANK);
+        assertTrue(actual);
+    }
+
+    @Test
+    void minimum_initial_amount_for_CD_account(){
+        command = "create CD 12345678 6.9 1000".split(" ");
+        boolean actual = validator.validate(command, BANK);
+        assertTrue(actual);
+    }
+
+    @Test
     void create_command_is_case_insensitive(){
         command = "create CheCkINg 12345678 6.9".split(" ");
         boolean actual = validator.validate(command, BANK);

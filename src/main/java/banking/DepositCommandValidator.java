@@ -23,9 +23,9 @@ public class DepositCommandValidator {
         if(bank.retrieveAccount(ID).getType().equals("Savings")){
             return this.validateSavingsDeposit(amount);
         }
-        else {
+        else if(bank.retrieveAccount(ID).getType().equals("Checking")) {
             return this.validateCheckingDeposit(amount);
-        }
+        } else { return false; }
     }
 
     private boolean validateCheckingDeposit(double amount) {

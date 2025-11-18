@@ -77,6 +77,13 @@ public class DepositCommandValidatorTest {
     }
 
     @Test
+    void cannot_deposit_to_null_account() {
+        command = new String[]{"deposit", null};
+        boolean actual = validator.validate(command, BANK);
+        assertFalse(actual);
+    }
+
+    @Test
     void cannot_deposit_into_CD(){
         command = new String[]{"deposit", CD_ACCOUNT.getID(), "500"};
         boolean actual = validator.validate(command, BANK);
