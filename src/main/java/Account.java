@@ -2,14 +2,12 @@ public abstract class Account {
 
     private final double APR;
     private double balance;
-    private static int lastID = 10000000;
     private final String ID;
 
-    Account(double APR, double balance){
+    Account(String ID, double APR, double balance){
         this.balance = balance;
         this.APR = APR;
-        lastID += 1;
-        ID = "" + lastID;
+        this.ID = ID;
     }
 
     public double getBalance() {

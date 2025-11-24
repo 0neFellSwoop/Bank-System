@@ -16,9 +16,9 @@ public class DepositCommandValidatorTest {
     @BeforeEach
     void setUp(){
         BANK = new Bank();
-        CHECKING_ACCOUNT = new CheckingAccount(0.5);
-        SAVINGS_ACCOUNT = new SavingsAccount(0.5);
-        CD_ACCOUNT = new CDAccount(0.5, 1005);
+        CHECKING_ACCOUNT = new CheckingAccount("11345678", 0.5);
+        SAVINGS_ACCOUNT = new SavingsAccount("11145678", 0.5);
+        CD_ACCOUNT = new CDAccount("11115678", 0.5, 1005);
         BANK.addAccount(CHECKING_ACCOUNT);
         BANK.addAccount(SAVINGS_ACCOUNT);
         BANK.addAccount(CD_ACCOUNT);
