@@ -1,3 +1,5 @@
+package banking;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -70,6 +72,13 @@ public class DepositCommandValidatorTest {
     @Test
     void cannot_deposit_with_missing_amount(){
         command = new String[]{"deposit", SAVINGS_ACCOUNT.getID()};
+        boolean actual = validator.validate(command, BANK);
+        assertFalse(actual);
+    }
+
+    @Test
+    void cannot_deposit_to_null_account() {
+        command = new String[]{"deposit", null};
         boolean actual = validator.validate(command, BANK);
         assertFalse(actual);
     }

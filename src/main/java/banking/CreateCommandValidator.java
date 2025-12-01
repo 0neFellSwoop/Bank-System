@@ -1,3 +1,5 @@
+package banking;
+
 public class CreateCommandValidator{
 
     public boolean validate(String[] parsedCommand, Bank bank) {

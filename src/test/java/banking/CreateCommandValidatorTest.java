@@ -1,3 +1,5 @@
+package banking;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -162,6 +164,20 @@ public class CreateCommandValidatorTest {
     @Test
     void create_CD_account(){
         command = "create CD 12345678 6.9 5000".split(" ");
+        boolean actual = validator.validate(command, BANK);
+        assertTrue(actual);
+    }
+
+    @Test
+    void maximum_initial_amount_for_CD_account(){
+        command = "create CD 12345678 6.9 10000".split(" ");
+        boolean actual = validator.validate(command, BANK);
+        assertTrue(actual);
+    }
+
+    @Test
+    void minimum_initial_amount_for_CD_account(){
+        command = "create CD 12345678 6.9 1000".split(" ");
         boolean actual = validator.validate(command, BANK);
         assertTrue(actual);
     }
