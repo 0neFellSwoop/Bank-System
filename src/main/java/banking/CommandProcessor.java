@@ -1,5 +1,7 @@
 package banking;
 
+import java.util.Map;
+
 public class CommandProcessor {
 
     private final Bank BANK;
@@ -29,6 +31,15 @@ public class CommandProcessor {
             case "deposit":
                 BANK.deposit(parsedCommand[1], Double.parseDouble(parsedCommand[2]));
                 break;
+            case "pass":
+                for(Map.Entry<String, Account> entry : BANK.getAccounts().entrySet()){
+                    double balance = entry.getValue().getBalance();
+                    if(balance == 0){
+                        BANK.getAccounts().remove(entry.getKey());
+                    } else if (balance < 100) {
+                        BANK.withdraw(entry.getValue().getID(), 25);
+                    }
+                }
         }
 
     }

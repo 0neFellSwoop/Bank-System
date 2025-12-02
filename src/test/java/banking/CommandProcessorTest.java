@@ -71,4 +71,77 @@ public class CommandProcessorTest {
         assertEquals(3000, bank.retrieveAccount("12345678").getBalance());
     }
 
+    @Test
+    void pass_deleted_empty_accounts(){
+        account = new SavingsAccount("12345678", 5);
+        bank.addAccount(account);
+        command = "pass 1";
+        commandProcessor.process(command);
+        assertEquals(0, bank.getAccounts().size());
+    }
+
+    @Test
+    void pass_does_not_delete_accounts_with_money(){
+        account = new CDAccount("12345678", 5, 1500);
+        bank.addAccount(account);
+        command = "pass 1";
+        commandProcessor.process(command);
+        assertEquals(1, bank.getAccounts().size());
+    }
+
+    @Test
+    void lowest_balance_to_avoid_minimum_balance_fee_from_pass_time(){
+        account = new CheckingAccount("12345678", 5);
+        bank.addAccount(account);
+        account.deposit(100);
+        command = "pass 1";
+        commandProcessor.process(command);
+        assertEquals(100, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void minimum_balance_fee(){
+        account = new CheckingAccount("12345678", 5);
+        bank.addAccount(account);
+        account.deposit(99);
+        command = "pass 1";
+        commandProcessor.process(command);
+        assertEquals(74, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void minimum_balance_fee_cannot_reduce_account_to_negative(){
+        account = new CheckingAccount("12345678", 5);
+        bank.addAccount(account);
+        account.deposit(10);
+        command = "pass 1";
+        commandProcessor.process(command);
+        assertEquals(0, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void minimum_balance_fee_minimum_value_without_account_deletion(){
+        account = new CheckingAccount("12345678", 5);
+        bank.addAccount(account);
+        account.deposit(0.01);
+        command = "pass 1";
+        commandProcessor.process(command);
+        assertEquals(0, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void pass_time_account_deletion_multiple_times_works_as_intended(){
+        account = new SavingsAccount("12345678", 5);
+        Account account2 = new CheckingAccount("12345677", 3);
+        bank.addAccount(account);
+        bank.addAccount(account2);
+        account.deposit(0.01);
+        command = "pass 1";
+        commandProcessor.process(command);
+        commandProcessor.process(command);
+        assertEquals(0, bank.getAccounts().size());
+    }
+
+
+
 }
