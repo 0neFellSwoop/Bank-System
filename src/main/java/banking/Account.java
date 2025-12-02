@@ -35,7 +35,7 @@ public abstract class Account {
         return ID;
     }
 
+    public abstract void accrueInterest(int months);
 
-    public abstract String getType();
-
+    public abstract boolean validateDeposit(double amount);
 }

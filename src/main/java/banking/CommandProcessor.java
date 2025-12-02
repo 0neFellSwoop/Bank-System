@@ -39,6 +39,7 @@ public class CommandProcessor {
                     } else if (balance < 100) {
                         BANK.withdraw(entry.getValue().getID(), 25);
                     }
+                    entry.getValue().accrueInterest(Integer.parseInt(parsedCommand[1]));
                 }
         }
 

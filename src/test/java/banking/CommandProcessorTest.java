@@ -96,7 +96,7 @@ public class CommandProcessorTest {
         account.deposit(100);
         command = "pass 1";
         commandProcessor.process(command);
-        assertEquals(100, bank.retrieveAccount("12345678").getBalance());
+        assertEquals(100+100*(0.05/12), bank.retrieveAccount("12345678").getBalance());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class CommandProcessorTest {
         account.deposit(99);
         command = "pass 1";
         commandProcessor.process(command);
-        assertEquals(74, bank.retrieveAccount("12345678").getBalance());
+        assertEquals(74+74*(0.05/12), bank.retrieveAccount("12345678").getBalance());
     }
 
     @Test
@@ -142,6 +142,79 @@ public class CommandProcessorTest {
         assertEquals(0, bank.getAccounts().size());
     }
 
+    @Test
+    void pass_time_accrues_interest_with_checking_accounts(){
+        account = new CheckingAccount("12345678", 3.6);
+        bank.addAccount(account);
+        account.deposit(200);
+        command = "pass 1";
+        commandProcessor.process(command);
+        assertEquals(200+200*0.036/12, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void pass_time_accrues_interest_with_savings_accounts(){
+        account = new SavingsAccount("12345678", 5);
+        bank.addAccount(account);
+        account.deposit(200);
+        command = "pass 1";
+        commandProcessor.process(command);
+        assertEquals(200+200*0.05/12, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void pass_time_accrues_interest_with_CD_accounts(){
+        double actualBalance = 1000;
+        account = new CDAccount("12345678", 10, actualBalance);
+        bank.addAccount(account);
+        command = "pass 1";
+        commandProcessor.process(command);
+        for(int i = 0; i < 4; i++){
+            actualBalance += actualBalance*0.10/12;
+        }
+        assertEquals(actualBalance, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void pass_time_accrues_interest_over_long_time_periods_on_checking_accounts(){
+        double actualBalance = 100;
+        account = new CheckingAccount("12345678", 2);
+        account.deposit(actualBalance);
+        bank.addAccount(account);
+        command = "pass 12";
+        commandProcessor.process(command);
+        for(int i = 0; i < 12; i++){
+            actualBalance += actualBalance*0.02/12;
+        }
+        assertEquals(actualBalance, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void pass_time_accrues_interest_over_long_time_periods_on_savings_accounts(){
+        double actualBalance = 100;
+        account = new SavingsAccount("12345678", 4);
+        account.deposit(actualBalance);
+        bank.addAccount(account);
+        command = "pass 12";
+        commandProcessor.process(command);
+        for(int i = 0; i < 12; i++){
+            actualBalance += actualBalance*0.04/12;
+        }
+        assertEquals(actualBalance, bank.retrieveAccount("12345678").getBalance());
+    }
+
+    @Test
+    void pass_time_accrues_interest_over_long_time_periods_on_CD_accounts(){
+        double actualBalance = 1000;
+        account = new CDAccount("12345678", 10, actualBalance);
+        bank.addAccount(account);
+        command = "pass 12";
+        commandProcessor.process(command);
+        for(int i = 0; i < 48; i++){
+            actualBalance += actualBalance*0.10/12;
+        }
+        assertEquals(actualBalance, bank.retrieveAccount("12345678").getBalance());
+    }
 
 
 }

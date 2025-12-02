@@ -8,7 +8,7 @@ public class DepositCommandValidator {
             return false;
         }
         String ID = parsedCommand[1];
-        if(bank.retrieveAccount(ID) == null || bank.retrieveAccount(ID).getType().equals("CD")){
+        if(bank.retrieveAccount(ID) == null){
             return false;
         }
         double amount;
@@ -20,19 +20,6 @@ public class DepositCommandValidator {
         if(amount < 0) {
             return false;
         }
-        if(bank.retrieveAccount(ID).getType().equals("Savings")){
-            return this.validateSavingsDeposit(amount);
-        }
-        else if(bank.retrieveAccount(ID).getType().equals("Checking")) {
-            return this.validateCheckingDeposit(amount);
-        } else { return false; }
-    }
-
-    private boolean validateCheckingDeposit(double amount) {
-        return !(amount > 1000);
-    }
-
-    private boolean validateSavingsDeposit(double amount) {
-        return !(amount > 2500);
+        return bank.retrieveAccount(ID).validateDeposit(amount);
     }
 }
