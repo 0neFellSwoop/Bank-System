@@ -20,11 +20,15 @@ public class CommandValidator {
         }
         String[] parsedCommand = command.split(" ");
         String type = parsedCommand[0].toLowerCase();
-        return switch (type) {
-            case "create" -> CREATE_VALIDATOR.validate(parsedCommand, BANK);
-            case "deposit" -> DEPOSIT_VALIDATOR.validate(parsedCommand, BANK);
-            case "pass" -> PASS_TIME_VALIDATOR.validate(parsedCommand);
-            default -> false;
-        };
+        switch (type) {
+            case "create":
+                return CREATE_VALIDATOR.validate(parsedCommand, BANK);
+            case "deposit":
+                return DEPOSIT_VALIDATOR.validate(parsedCommand, BANK);
+            case "pass":
+                return PASS_TIME_VALIDATOR.validate(parsedCommand);
+            default:
+                return false;
+        }
     }
 }
