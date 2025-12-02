@@ -39,6 +39,13 @@ public class CommandValidatorTest {
     }
 
     @Test
+    void typo_in_pass_command(){
+        command = "passs 12";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
     void typo_in_deposit_command(){
         command = "deepsoit 12345678 454";
         boolean actual = commandValidator.validate(command);
