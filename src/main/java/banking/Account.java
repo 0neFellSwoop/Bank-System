@@ -38,4 +38,7 @@ public abstract class Account {
     public abstract void accrueInterest(int months);
 
     public abstract boolean validateDeposit(double amount);
+
+    public abstract boolean validateWithdrawal(double amount);
+
 }

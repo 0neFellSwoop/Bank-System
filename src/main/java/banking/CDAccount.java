@@ -18,5 +18,10 @@ public class CDAccount extends Account {
         return false;
     }
 
+    @Override
+    public boolean validateWithdrawal(double amount) {
+        return false;
+    }
+
 
 }

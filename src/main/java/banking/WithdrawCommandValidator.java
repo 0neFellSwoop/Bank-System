@@ -16,9 +16,6 @@ public class WithdrawCommandValidator {
         } catch (NumberFormatException e){
             return false;
         }
-        if(amount < 0) {
-            return false;
-        }
-        return true;
+        return bank.retrieveAccount(ID).validateWithdrawal(amount);
     }
 }

@@ -17,4 +17,9 @@ public class SavingsAccount extends Account{
     public boolean validateDeposit(double amount) {
         return !(amount > 2500);
     }
+
+    @Override
+    public boolean validateWithdrawal(double amount) {
+        return !(amount < 0 || amount > 1000);
+    }
 }

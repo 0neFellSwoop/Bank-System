@@ -8,17 +8,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WithdrawCommandValidatorTest {
 
-    Account account;
+    Account checkingAccount;
+    Account savingsAccount;
+    Account CDAccount;
     Bank bank;
     WithdrawCommandValidator validator;
-    String ID = "12345678";
     String[] command;
 
     @BeforeEach
     void setUp(){
-        account = new CheckingAccount(ID, 3.5);
+        checkingAccount = new CheckingAccount("12345678", 3.5);
+        savingsAccount = new SavingsAccount("12345677", 4);
+        CDAccount = new CDAccount("12345666", 10, 1000);
         bank = new Bank();
-        bank.addAccount(account);
+        bank.addAccount(checkingAccount);
+        bank.addAccount(savingsAccount);
+        bank.addAccount(CDAccount);
         validator = new WithdrawCommandValidator();
     }
 
@@ -71,5 +76,82 @@ public class WithdrawCommandValidatorTest {
         assertFalse(actual);
     }
 
+    @Test
+    void invalid_ID_number_in_withdraw(){
+        command = "withdraw 12345688 400".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
+    @Test
+    void valid_withdraw_zero(){
+        command = "withdraw 12345678 0".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
+    @Test
+    void invalid_to_withdraw_negative(){
+        command = "withdraw 12345678 -50".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
+    @Test
+    void invalid_to_withdraw_more_than_400_from_checking_account(){
+        command = "withdraw 12345678 500".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
+    @Test
+    void valid_to_withdraw_max_from_checking_account(){
+        command = "withdraw 12345678 400".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_to_withdraw_multiple_times_from_checking_account(){
+        command = "withdraw 12345678 200".split(" ");
+        boolean actual = validator.validate(command, bank);
+        actual = actual && validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_to_withdraw_from_savings(){
+        command = "withdraw 12345677 400".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
+    @Test
+    void invalid_to_withdraw_negative_from_savings(){
+        command = "withdraw 12345677 -400".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
+    @Test
+    void valid_to_withdraw_zero_from_savings(){
+        command = "withdraw 12345677 0".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_to_withdraw_max_from_savings(){
+        command = "withdraw 12345677 1000".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
+    @Test
+    void invalid_to_withdraw_more_than_1000_from_savings(){
+        command = "withdraw 12345677 4000".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
 
 }

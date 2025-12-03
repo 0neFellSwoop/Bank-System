@@ -17,4 +17,11 @@ public class CheckingAccount extends Account{
     public boolean validateDeposit(double amount) {
         return !(amount > 1000);
     }
+
+    @Override
+    public boolean validateWithdrawal(double amount) {
+        return !(amount < 0 || amount > 400);
+    }
+
+
 }
