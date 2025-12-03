@@ -6,9 +6,15 @@ public class SavingsAccount extends Account{
         super(ID, APR, 0);
     }
 
+    @Override
+    public void accrueInterest(int months) {
+        for(int i = 0; i < months; i++){
+            super.deposit(super.getBalance() * super.getAPR()/100/12);
+        }
+    }
 
     @Override
-    public String getType() {
-        return "Savings";
+    public boolean validateDeposit(double amount) {
+        return !(amount > 2500);
     }
 }

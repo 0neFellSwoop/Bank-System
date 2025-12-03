@@ -7,8 +7,15 @@ public class CDAccount extends Account {
     }
 
     @Override
-    public String getType() {
-        return "CD";
+    public void accrueInterest(int months) {
+        for(int i = 0; i < months*4; i++){
+            super.deposit(super.getBalance() * super.getAPR()/100/12);
+        }
+    }
+
+    @Override
+    public boolean validateDeposit(double amount) {
+        return false;
     }
 
 
