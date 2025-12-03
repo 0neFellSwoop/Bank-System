@@ -21,6 +21,9 @@ public class AccountTest {
     }
 
     @Test
+    void account_is_created_with_the_given_ID() { assertEquals("12345678", account.getID());}
+
+    @Test
     public void account_is_created_with_the_given_APR(){
         assertEquals(APR, account.getAPR());
     }

@@ -5,6 +5,7 @@ public class CommandValidator {
     private final CreateCommandValidator CREATE_VALIDATOR;
     private final DepositCommandValidator DEPOSIT_VALIDATOR;
     private final PassTimeCommandValidator PASS_TIME_VALIDATOR;
+    private final WithdrawCommandValidator WITHDRAW_VALIDATOR;
     private final Bank BANK;
 
     public CommandValidator(Bank bank) {
@@ -12,6 +13,7 @@ public class CommandValidator {
         CREATE_VALIDATOR = new CreateCommandValidator();
         DEPOSIT_VALIDATOR = new DepositCommandValidator();
         PASS_TIME_VALIDATOR = new PassTimeCommandValidator();
+        WITHDRAW_VALIDATOR = new WithdrawCommandValidator();
     }
 
     public boolean validate(String command) {
@@ -27,6 +29,8 @@ public class CommandValidator {
                 return DEPOSIT_VALIDATOR.validate(parsedCommand, BANK);
             case "pass":
                 return PASS_TIME_VALIDATOR.validate(parsedCommand);
+            case "withdraw":
+                return WITHDRAW_VALIDATOR.validate(parsedCommand, BANK);
             default:
                 return false;
         }
