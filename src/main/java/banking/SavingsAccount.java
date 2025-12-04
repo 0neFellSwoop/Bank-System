@@ -12,9 +12,7 @@ public class SavingsAccount extends Account{
     @Override
     public void accrueInterest(int months) {
         monthlyWithdraw = false;
-        for(int i = 0; i < months; i++){
-            super.deposit(super.getBalance() * super.getAPR()/100/12);
-        }
+        super.accrueInterest(months);
     }
 
     @Override

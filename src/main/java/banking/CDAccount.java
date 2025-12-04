@@ -12,9 +12,7 @@ public class CDAccount extends Account {
     @Override
     public void accrueInterest(int months) {
         accountAge += months;
-        for(int i = 0; i < months*4; i++){
-            super.deposit(super.getBalance() * super.getAPR()/100/12);
-        }
+        super.accrueInterest(months*4);
     }
 
     @Override
