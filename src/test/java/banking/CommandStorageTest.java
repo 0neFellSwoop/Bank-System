@@ -32,4 +32,11 @@ public class CommandStorageTest {
         assertEquals(otherCommand, storage.getInvalidCommands().get(1));
     }
 
+    @Test
+    void store_and_retirieve_a_valid_command(){
+        command = "pass 1";
+        storage.addValidCommand(command);
+        assertEquals(command, storage.getValidCommands().get(0));
+    }
+
 }
