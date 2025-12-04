@@ -18,7 +18,7 @@ public class MasterControlTest {
     void setUp(){
         input = new ArrayList<>();
         bank = new Bank();
-        masterControl = new MasterControl(new CommandValidator(bank), new CommandProcessor(bank), new CommandStorage());
+        masterControl = new MasterControl(bank);
     }
 
     private void assertSingleCommand(String command, List<String> actual){
@@ -62,7 +62,7 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertSingleCommand("create checking 12345678 1.0", actual);
+        assertEquals("create checking 12345678 1.0", actual.get(1));
     }
 
     @Test
@@ -77,11 +77,11 @@ public class MasterControlTest {
     @Test
     void valid_to_create_accounts_with_different_ID(){
         input.add("create checking 12345678 1.0");
-        input.add("create savings 21345678 1.0");
+        input.add("create checking 21345678 1.0");
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals(0, actual.size());
+        assertEquals(2, actual.size());
     }
 
     @Test
@@ -103,6 +103,23 @@ public class MasterControlTest {
         assertEquals(100, bank.retrieveAccount("12345678").getBalance());
     }
 
+    @Test
+    void invalid_commands_come_after_valid_commands(){
+        input.add("create checking 12345678 3.6");
+        input.add("womp");
 
+        List<String> actual = masterControl.start(input);
+
+        assertEquals("womp", actual.get(1));
+    }
+
+    @Test
+    void output_created_account(){
+        input.add("create checking 12345678 3.6");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals("Checking 12345678 0 3.60", actual.get(0));
+    }
 
 }

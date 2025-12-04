@@ -1,6 +1,6 @@
 package banking;
 
-public class CommandValidator {
+public class CommandValidator{
 
     private final CreateCommandValidator CREATE_VALIDATOR;
     private final DepositCommandValidator DEPOSIT_VALIDATOR;
