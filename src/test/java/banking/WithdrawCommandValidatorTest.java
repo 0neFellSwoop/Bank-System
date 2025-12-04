@@ -166,4 +166,53 @@ public class WithdrawCommandValidatorTest {
         assertFalse(actual);
     }
 
+    @Test
+    void valid_to_withdraw_from_savings_with_months_between(){
+        command = "withdraw 12345677 0".split(" ");
+        boolean actual = validator.validate(command, bank);
+        processor.process("withdraw 12345677 0");
+        processor.process("pass 1");
+        actual = actual && validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
+    @Test
+    void invalid_to_withdraw_from_new_CD(){
+        command = "withdraw 12345666 1000".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
+    @Test
+    void invalid_to_withdraw_from_CD_half_matured(){
+        command = "withdraw 12345666 1000".split(" ");
+        processor.process("pass 6");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
+    @Test
+    void invalid_partial_withdrawal_from_CD(){
+        command = "withdraw 12345666 500".split(" ");
+        processor.process("pass 12");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
+    @Test
+    void valid_CD_withdrawal_at_12_months(){
+        command = "withdraw 12345666 2000".split(" ");
+        processor.process("pass 12");
+        boolean actual = validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_CD_withdrawal_far_after_maturity(){
+        command = "withdraw 12345666 20000".split(" ");
+        processor.process("pass 24");
+        boolean actual = validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
 }
