@@ -39,10 +39,24 @@ public class CommandValidatorTest {
     }
 
     @Test
+    void valid_create_command(){
+        command = "create checking 12345678 4";
+        boolean actual = commandValidator.validate(command);
+        assertTrue(actual);
+    }
+
+    @Test
     void typo_in_pass_command(){
         command = "passs 12";
         boolean actual = commandValidator.validate(command);
         assertFalse(actual);
+    }
+
+    @Test
+    void valid_pass_command(){
+        command = "pass 4";
+        boolean actual = commandValidator.validate(command);
+        assertTrue(actual);
     }
 
     @Test
@@ -52,6 +66,12 @@ public class CommandValidatorTest {
         assertFalse(actual);
     }
 
+    @Test
+    void typo_in_withdraw_command(){
+        command = "withdraaw 12345678 300";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
+    }
 
     @Test
     void command_type_is_case_insensitive(){

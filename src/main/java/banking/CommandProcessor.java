@@ -1,5 +1,6 @@
 package banking;
 
+import java.util.Iterator;
 import java.util.Map;
 
 public class CommandProcessor {
@@ -12,7 +13,7 @@ public class CommandProcessor {
 
     public void process(String command) {
         String[] parsedCommand = command.split(" ");
-        switch(parsedCommand[0]){
+        switch(parsedCommand[0].toLowerCase()){
             case "create":
                 String ID = parsedCommand[2];
                 double APR = Double.parseDouble(parsedCommand[3]);
@@ -31,16 +32,23 @@ public class CommandProcessor {
             case "deposit":
                 BANK.deposit(parsedCommand[1], Double.parseDouble(parsedCommand[2]));
                 break;
+            case "withdraw":
+                BANK.withdraw(parsedCommand[1], Double.parseDouble(parsedCommand[2]));
+                break;
             case "pass":
-                for(Map.Entry<String, Account> entry : BANK.getAccounts().entrySet()){
-                    double balance = entry.getValue().getBalance();
+                Iterator<Map.Entry<String, Account>> iterator = BANK.getAccounts().entrySet().iterator();
+                while(iterator.hasNext()){
+                    Map.Entry<String, Account> account = iterator.next();
+                    double balance = account.getValue().getBalance();
                     if(balance == 0){
-                        BANK.getAccounts().remove(entry.getKey());
+                        iterator.remove();
                     } else if (balance < 100) {
-                        BANK.withdraw(entry.getValue().getID(), 25);
+                        BANK.withdraw(account.getValue().getID(), 25);
                     }
-                    entry.getValue().accrueInterest(Integer.parseInt(parsedCommand[1]));
+                    account.getValue().accrueInterest(Integer.parseInt(parsedCommand[1]));
                 }
+
+
         }
 
     }

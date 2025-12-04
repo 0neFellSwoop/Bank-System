@@ -35,7 +35,14 @@ public abstract class Account {
         return ID;
     }
 
-    public abstract void accrueInterest(int months);
+    public void accrueInterest(int months){
+        for(int i = 0; i < months; i++){
+            this.deposit(balance * APR/100/12);
+        }
+    }
 
     public abstract boolean validateDeposit(double amount);
+
+    public abstract boolean validateWithdrawal(double amount);
+
 }
