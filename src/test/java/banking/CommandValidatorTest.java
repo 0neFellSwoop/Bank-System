@@ -46,6 +46,27 @@ public class CommandValidatorTest {
     }
 
     @Test
+    void valid_create_with_trailing_spaces(){
+        command = "create checking 12345678 0.5  ";
+        boolean actual = commandValidator.validate(command);
+        assertTrue(actual);
+    }
+
+    @Test
+    void invalid_create_with_extra_spaces_in_the_beginnning(){
+        command = "   create checking 12345678 0.5";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
+    void invalid_create_with_extra_spaces_in_the_middle(){
+        command = "create  checking 12345678  0.5";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
     void typo_in_pass_command(){
         command = "passs 12";
         boolean actual = commandValidator.validate(command);
@@ -57,6 +78,27 @@ public class CommandValidatorTest {
         command = "pass 4";
         boolean actual = commandValidator.validate(command);
         assertTrue(actual);
+    }
+
+    @Test
+    void valid_pass_command_with_trailing_spaces(){
+        command = "pass 4 ";
+        boolean actual = commandValidator.validate(command);
+        assertTrue(actual);
+    }
+
+    @Test
+    void valid_pass_command_with_beginning_spaces(){
+        command = " pass 4";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
+    void valid_pass_command_with_middle_spaces(){
+        command = "pass  4";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
     }
 
     @Test
@@ -79,6 +121,30 @@ public class CommandValidatorTest {
         command = "withdraw 12345678 100";
         boolean actual = commandValidator.validate(command);
         assertTrue(actual);
+    }
+
+    @Test
+    void valid_withdraw_command_trailing_spaces(){
+        BANK.addAccount(new CheckingAccount("12345678", 3.6));
+        command = "withdraw 12345678 100   ";
+        boolean actual = commandValidator.validate(command);
+        assertTrue(actual);
+    }
+
+    @Test
+    void invalid_withdraw_command_beginning_spaces(){
+        BANK.addAccount(new CheckingAccount("12345678", 3.6));
+        command = "  withdraw 12345678 100";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
+    }
+
+    @Test
+    void invalid_withdraw_command_middle_spaces(){
+        BANK.addAccount(new CheckingAccount("12345678", 3.6));
+        command = "withdraw 12345678  100";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
     }
 
     @Test
