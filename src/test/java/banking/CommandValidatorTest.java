@@ -88,4 +88,11 @@ public class CommandValidatorTest {
         assertTrue(actual);
     }
 
+    @Test
+    void transfer_command_delegation(){
+        command = "transfer 12345678 12345678 100";
+        boolean actual = commandValidator.validate(command);
+        assertFalse(actual);
+    }
+
 }

@@ -248,4 +248,33 @@ public class CommandProcessorTest {
         assertEquals(0, bank.getAccounts().size());
     }
 
+    @Test
+    void transfer_from_account_removes_money_from_sender(){
+        checkingAccount.deposit(200);
+        commandProcessor.process("transfer 12345678 12345677 100");
+        assertEquals(100, checkingAccount.getBalance());
+    }
+
+    @Test
+    void transfer_from_account_adds_money_to_destination(){
+        checkingAccount.deposit(200);
+        commandProcessor.process("transfer 12345678 12345677 100");
+        assertEquals(100, savingsAccount.getBalance());
+    }
+
+    @Test
+    void transfer_overdrafts_result_in_zero_balance(){
+        checkingAccount.deposit(200);
+        commandProcessor.process("transfer 12345678 12345677 250");
+        assertEquals(0, checkingAccount.getBalance());
+    }
+
+    @Test
+    void transfer_overdrafts_result_in_correct_destination_balance(){
+        checkingAccount.deposit(200);
+        commandProcessor.process("transfer 12345678 12345677 250");
+        assertEquals(200, savingsAccount.getBalance());
+    }
+
+
 }
