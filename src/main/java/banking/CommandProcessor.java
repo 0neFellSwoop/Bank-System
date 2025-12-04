@@ -27,6 +27,8 @@ public class CommandProcessor {
                     case "cd":
                         BANK.addAccount(new CDAccount(ID, APR, Double.parseDouble(parsedCommand[4])));
                         break;
+                    default:
+                        break;
                 }
                 break;
             case "deposit":
@@ -34,6 +36,17 @@ public class CommandProcessor {
                 break;
             case "withdraw":
                 BANK.withdraw(parsedCommand[1], Double.parseDouble(parsedCommand[2]));
+                break;
+            case "transfer":
+                double amount = Double.parseDouble(parsedCommand[3]);
+                String senderID = parsedCommand[1];
+                String destinationID = parsedCommand[2];
+                double senderBalance = BANK.retrieveAccount(senderID).getBalance();
+                BANK.withdraw(senderID, amount);
+                if(amount > senderBalance){
+                    amount = senderBalance;
+                }
+                BANK.deposit(destinationID, amount);
                 break;
             case "pass":
                 Iterator<Map.Entry<String, Account>> iterator = BANK.getAccounts().entrySet().iterator();
@@ -47,6 +60,8 @@ public class CommandProcessor {
                     }
                     account.getValue().accrueInterest(Integer.parseInt(parsedCommand[1]));
                 }
+            default:
+                break;
 
 
         }

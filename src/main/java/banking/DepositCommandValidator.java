@@ -1,25 +1,15 @@
 package banking;
 
-public class DepositCommandValidator {
-
+public class DepositCommandValidator extends ArgumentValidator {
 
     public boolean validate(String[] parsedCommand, Bank bank) {
-        if(parsedCommand.length != 3){
+        if(super.validateCommandLength(parsedCommand, 3)){
+            if(super.validateID(parsedCommand[1], bank) && super.validateAmount(parsedCommand[2])){
+                double amount = Double.parseDouble(parsedCommand[2]);
+                return !(amount < 0) && bank.retrieveAccount(parsedCommand[1]).validateDeposit(amount);
+            }
             return false;
         }
-        String ID = parsedCommand[1];
-        if(bank.retrieveAccount(ID) == null){
-            return false;
-        }
-        double amount;
-        try{
-            amount = Double.parseDouble(parsedCommand[2]);
-        } catch (NumberFormatException e){
-            return false;
-        }
-        if(amount < 0) {
-            return false;
-        }
-        return bank.retrieveAccount(ID).validateDeposit(amount);
+        return false;
     }
 }
