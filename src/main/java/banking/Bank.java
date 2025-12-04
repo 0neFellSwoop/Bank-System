@@ -5,10 +5,10 @@ import java.util.Map;
 
 public class Bank {
 
-    private Map<String, Account> accounts;
+    private final Map<String, Account> accounts;
 
     Bank() {
-        accounts = new HashMap<String, Account>();
+        accounts = new HashMap<>();
     }
 
     public Map<String, Account> getAccounts() {
@@ -29,5 +29,9 @@ public class Bank {
 
     public void withdraw(String id, double withdrawAmount) {
         retrieveAccount(id).withdraw(withdrawAmount);
+    }
+
+    public boolean validateTransfer(String senderID, String destinationID, double amount) {
+        return this.retrieveAccount(senderID).validateWithdrawal(amount) && this.retrieveAccount(senderID).validateDeposit(amount) && this.retrieveAccount(destinationID).validateDeposit(amount);
     }
 }
