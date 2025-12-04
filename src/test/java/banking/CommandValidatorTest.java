@@ -74,6 +74,14 @@ public class CommandValidatorTest {
     }
 
     @Test
+    void valid_withdraw_command(){
+        BANK.addAccount(new CheckingAccount("12345678", 3.6));
+        command = "withdraw 12345678 100";
+        boolean actual = commandValidator.validate(command);
+        assertTrue(actual);
+    }
+
+    @Test
     void command_type_is_case_insensitive(){
         command = "creaTE checking 12345678 0.4";
         boolean actual = commandValidator.validate(command);

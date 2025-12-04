@@ -1,21 +1,11 @@
 package banking;
 
-public class WithdrawCommandValidator {
+public class WithdrawCommandValidator extends CashFlowValidator {
 
     public boolean validate(String[] parsedCommand, Bank bank) {
-        if(parsedCommand.length != 3){
-            return false;
+        if(super.validate(parsedCommand, bank)){
+            return bank.retrieveAccount(parsedCommand[1]).validateWithdrawal(Double.parseDouble(parsedCommand[2]));
         }
-        String ID = parsedCommand[1];
-        if(bank.retrieveAccount(ID) == null){
-            return false;
-        }
-        double amount;
-        try{
-            amount = Double.parseDouble(parsedCommand[2]);
-        } catch (NumberFormatException e){
-            return false;
-        }
-        return bank.retrieveAccount(ID).validateWithdrawal(amount);
+        return false;
     }
 }

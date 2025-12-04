@@ -27,10 +27,15 @@ public class CommandValidator {
                 return CREATE_VALIDATOR.validate(parsedCommand, BANK);
             case "deposit":
                 return DEPOSIT_VALIDATOR.validate(parsedCommand, BANK);
-            case "pass":
-                return PASS_TIME_VALIDATOR.validate(parsedCommand);
             case "withdraw":
                 return WITHDRAW_VALIDATOR.validate(parsedCommand, BANK);
+            case "transfer":
+                String[] withdrawCommand = {"withdraw", parsedCommand[1], parsedCommand[3]};
+                String[] depositCommand =  {"deposit", parsedCommand[2], parsedCommand[3]};
+                return WITHDRAW_VALIDATOR.validate(withdrawCommand, BANK) && DEPOSIT_VALIDATOR.validate(depositCommand, BANK);
+            case "pass":
+                return PASS_TIME_VALIDATOR.validate(parsedCommand);
+
             default:
                 return false;
         }
