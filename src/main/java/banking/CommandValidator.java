@@ -10,10 +10,10 @@ public class CommandValidator {
 
     public CommandValidator(Bank bank) {
         this.BANK = bank;
-        CREATE_VALIDATOR = new CreateCommandValidator();
-        DEPOSIT_VALIDATOR = new DepositCommandValidator();
-        PASS_TIME_VALIDATOR = new PassTimeCommandValidator();
-        WITHDRAW_VALIDATOR = new WithdrawCommandValidator();
+        this.CREATE_VALIDATOR = new CreateCommandValidator();
+        this.DEPOSIT_VALIDATOR = new DepositCommandValidator();
+        this.PASS_TIME_VALIDATOR = new PassTimeCommandValidator();
+        this.WITHDRAW_VALIDATOR = new WithdrawCommandValidator();
     }
 
     public boolean validate(String command) {

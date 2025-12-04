@@ -13,6 +13,7 @@ public class WithdrawCommandValidatorTest {
     Account CDAccount;
     Bank bank;
     WithdrawCommandValidator validator;
+    CommandProcessor processor;
     String[] command;
 
     @BeforeEach
@@ -24,6 +25,8 @@ public class WithdrawCommandValidatorTest {
         bank.addAccount(checkingAccount);
         bank.addAccount(savingsAccount);
         bank.addAccount(CDAccount);
+        savingsAccount.deposit(1000);
+        processor = new CommandProcessor(bank);
         validator = new WithdrawCommandValidator();
     }
 
@@ -151,6 +154,15 @@ public class WithdrawCommandValidatorTest {
     void invalid_to_withdraw_more_than_1000_from_savings(){
         command = "withdraw 12345677 4000".split(" ");
         boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
+    @Test
+    void invalid_to_withdraw_from_savings_several_times_without_time_between(){
+        command = "withdraw 12345677 0".split(" ");
+        boolean actual = validator.validate(command, bank);
+        processor.process("withdraw 12345677 0");
+        actual = actual && validator.validate(command, bank);
         assertFalse(actual);
     }
 
