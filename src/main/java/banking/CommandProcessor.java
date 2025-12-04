@@ -13,7 +13,7 @@ public class CommandProcessor {
 
     public void process(String command) {
         String[] parsedCommand = command.split(" ");
-        switch(parsedCommand[0]){
+        switch(parsedCommand[0].toLowerCase()){
             case "create":
                 String ID = parsedCommand[2];
                 double APR = Double.parseDouble(parsedCommand[3]);

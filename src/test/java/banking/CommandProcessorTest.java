@@ -226,5 +226,26 @@ public class CommandProcessorTest {
         assertEquals(400+400*0.05/12-100, savingsAccount.getBalance());
     }
 
+    @Test
+    void withdraw_zero_works_as_expected(){
+        command = "withdraw 12345677 0";
+        commandProcessor.process(command);
+        assertEquals(0, savingsAccount.getBalance());
+    }
+
+    @Test
+    void withdraw_from_CD_reduces_balance_appropriately(){
+        command = "withdraw 12345666 1000";
+        commandProcessor.process(command);
+        assertEquals(0, CDAccount.getBalance());
+    }
+
+    @Test
+    void CD_account_deleted_after_mature_withdraw_and_pass_time(){
+        commandProcessor.process("pass 12");
+        commandProcessor.process("withdraw 12345666 2000");
+        commandProcessor.process("pass 1");
+        assertEquals(0, bank.getAccounts().size());
+    }
 
 }
