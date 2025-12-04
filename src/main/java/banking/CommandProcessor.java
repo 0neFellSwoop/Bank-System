@@ -27,6 +27,8 @@ public class CommandProcessor {
                     case "cd":
                         BANK.addAccount(new CDAccount(ID, APR, Double.parseDouble(parsedCommand[4])));
                         break;
+                    default:
+                        break;
                 }
                 break;
             case "deposit":
@@ -47,6 +49,8 @@ public class CommandProcessor {
                     }
                     account.getValue().accrueInterest(Integer.parseInt(parsedCommand[1]));
                 }
+            default:
+                break;
 
 
         }
