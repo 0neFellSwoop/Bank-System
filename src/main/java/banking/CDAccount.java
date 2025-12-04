@@ -25,5 +25,9 @@ public class CDAccount extends Account {
         return !(accountAge < 12) && amount >= super.getBalance();
     }
 
+    @Override
+    public String toString(){
+        return "Cd " + super.toString();
+    }
 
 }

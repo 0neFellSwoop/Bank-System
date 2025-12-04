@@ -23,7 +23,7 @@ public class MasterControlTest {
 
     private void assertSingleCommand(String command, List<String> actual){
         assertEquals(1, actual.size());
-        assertEquals(command, actual.get(0));
+        assertEquals(command, actual.getFirst());
     }
 
     @Test
@@ -119,7 +119,58 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals("Checking 12345678 0 3.60", actual.get(0));
+        assertEquals("Checking 12345678 0.00 3.60", actual.getFirst());
+    }
+
+    @Test
+    void output_created_savings_account(){
+        input.add("create savings 12345678 5");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals("Savings 12345678 0.00 5.00", actual.getFirst());
+    }
+
+    @Test
+    void output_created_CD(){
+        input.add("create cd 12345678 10 1000");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals("Cd 12345678 1000.00 10.00", actual.getFirst());
+    }
+
+    @Test
+    void dont_print_deleted_account(){
+        input.add("create savings 12345678 5");
+        input.add("pass 1");
+        List<String> actual = masterControl.start(input);
+
+        assertEquals(0, actual.size());
+    }
+
+    @Test
+    void print_correct_account_if_deleted_account_has_same_ID(){
+        input.add("create savings 12345678 5");
+        input.add("pass 1");
+        input.add("create cd 12345678 10 1000");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals("Cd 12345678 1000.00 10.00", actual.getFirst());
+    }
+
+    @Test
+    void output_accounts_in_correct_order_if_deleted_account_has_same_ID(){
+        input.add("create savings 12345678 5");
+        input.add("pass 1");
+        input.add("create savings 87654321 5");
+        input.add("create cd 12345678 10 1000");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals("Cd 12345678 1000.00 10.00", actual.get(1));
+
     }
 
 }

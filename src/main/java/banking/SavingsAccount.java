@@ -30,4 +30,9 @@ public class SavingsAccount extends Account{
         monthlyWithdraw = true;
         super.withdraw(amount);
     }
+
+    @Override
+    public String toString(){
+        return "Savings " + super.toString();
+    }
 }

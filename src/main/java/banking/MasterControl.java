@@ -1,5 +1,6 @@
 package banking;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,16 +32,20 @@ public class MasterControl {
 
     private List<String> output(){
         List<String> output = new ArrayList<>();
+        int newAccounts = 0;
+        Account account;
+        String[] parsedCommand;
+        String ID;
         for(String command : commandStorage.getValidCommands()){
-            String[] parsedCommand = command.split(" ");
+            parsedCommand = command.split(" ");
             switch (parsedCommand[0].toLowerCase()){
                 case "create":
-                    if(bank.retrieveAccount(parsedCommand[2]) != null) {
-                        String type = parsedCommand[1].toLowerCase();
-                        switch (type) {
-                            case "checking":
-                                output.add("Checking 12345678 0 3.60");
-                                break;
+                    newAccounts++;
+                    ID = parsedCommand[2];
+                    if(bank.retrieveAccount(ID) != null) {
+                        account = bank.retrieveAccount(ID);
+                        if(newAccounts == account.getAccountNumber()){
+                            output.add(account.toString());
                         }
                     }
                     break;

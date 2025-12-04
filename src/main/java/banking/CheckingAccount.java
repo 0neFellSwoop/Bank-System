@@ -16,4 +16,9 @@ public class CheckingAccount extends Account{
         return !(amount < 0 || amount > 400);
     }
 
+    @Override
+    public String toString(){
+        return "Checking " + super.toString();
+    }
+
 }
