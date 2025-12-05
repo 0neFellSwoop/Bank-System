@@ -20,7 +20,7 @@ public class CommandStorageTest {
     void store_and_retrieve_an_invalid_command(){
         command = "invalidkbhihih";
         storage.addInvalidCommand(command);
-        assertEquals(command, storage.getInvalidCommands().getFirst());
+        assertEquals(command, storage.getInvalidCommands().get(0));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class CommandStorageTest {
         otherCommand = "crreeeeaaate account for mee";
         storage.addInvalidCommand(command);
         storage.addInvalidCommand(otherCommand);
-        assertEquals(command, storage.getInvalidCommands().getFirst());
+        assertEquals(command, storage.getInvalidCommands().get(0));
         assertEquals(otherCommand, storage.getInvalidCommands().get(1));
     }
 
