@@ -303,7 +303,6 @@ public class MasterControlTest {
         assertEquals("withdraw 20 2", actual.get(12));
         assertEquals("withdraw 2", actual.get(13));
         assertEquals("withdraw", actual.get(14));
-
     }
 
 }
