@@ -208,4 +208,11 @@ public class TransferCommandValidatorTest {
         assertTrue(actual);
     }
 
+    @Test
+    void invalid_to_transfer_to_and_from_same_account(){
+        command = "transfer 11111111 11111111 100".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertFalse(actual);
+    }
+
 }
