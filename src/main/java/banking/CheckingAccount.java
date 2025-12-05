@@ -4,6 +4,7 @@ public class CheckingAccount extends Account{
 
     CheckingAccount(String ID, double APR){
         super(ID, APR, 0);
+
     }
 
     @Override
@@ -14,6 +15,11 @@ public class CheckingAccount extends Account{
     @Override
     public boolean validateWithdrawal(double amount) {
         return !(amount < 0 || amount > 400);
+    }
+
+    @Override
+    public String toString(){
+        return "Checking " + super.toString();
     }
 
 }

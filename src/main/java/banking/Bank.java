@@ -6,9 +6,11 @@ import java.util.Map;
 public class Bank {
 
     private final Map<String, Account> accounts;
+    private int numberOfAccounts;
 
     Bank() {
         accounts = new HashMap<>();
+        numberOfAccounts = 0;
     }
 
     public Map<String, Account> getAccounts() {
@@ -16,7 +18,10 @@ public class Bank {
     }
 
     public void addAccount(Account account) {
+        numberOfAccounts++;
+        account.setAccountNumber(numberOfAccounts);
         accounts.put(account.getID(), account);
+
     }
 
     public Account retrieveAccount(String id){

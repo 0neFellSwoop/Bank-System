@@ -2,8 +2,12 @@ package banking;
 
 public abstract class ArgumentValidator {
 
+    public void logCommand(String[] parsedCommand, Bank bank){
+        bank.retrieveAccount(parsedCommand[1]).logCommand(String.join(" ", parsedCommand));
+    }
+
     public boolean validateID(String ID, Bank bank){
-        return !(bank.retrieveAccount(ID) == null);
+        return bank.retrieveAccount(ID) != null;
     }
 
     public boolean validateAmount(String amount){

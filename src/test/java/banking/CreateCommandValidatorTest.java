@@ -134,21 +134,21 @@ public class CreateCommandValidatorTest {
     }
 
     @Test
-    void too_small_CD_account_inital_amount(){
+    void too_small_CD_account_initial_amount(){
         command = "create CD 12345678 6.9 500".split(" ");
         boolean actual = validator.validate(command, BANK);
         assertFalse(actual);
     }
 
     @Test
-    void too_large_CD_account_inital_amount(){
+    void too_large_CD_account_initial_amount(){
         command = "create CD 12345678 6.9 10004".split(" ");
         boolean actual = validator.validate(command, BANK);
         assertFalse(actual);
     }
 
     @Test
-    void CD_account_inital_amount_not_a_number(){
+    void CD_account_initial_amount_not_a_number(){
         command = "create CD 12345678 6.9 xyz".split(" ");
         boolean actual = validator.validate(command, BANK);
         assertFalse(actual);
@@ -184,7 +184,7 @@ public class CreateCommandValidatorTest {
 
     @Test
     void create_command_is_case_insensitive(){
-        command = "create CheCkINg 12345678 6.9".split(" ");
+        command = "creAte cHecKing 98765432 0.01".split(" ");
         boolean actual = validator.validate(command, BANK);
         assertTrue(actual);
     }

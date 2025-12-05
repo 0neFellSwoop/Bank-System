@@ -1,15 +1,39 @@
 package banking;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Account {
 
     private final double APR;
     private double balance;
     private final String ID;
+    private int accountNumber = 0;
+    private List<String> commandLog;
 
     Account(String ID, double APR, double balance){
         this.balance = balance;
         this.APR = APR;
         this.ID = ID;
+        this.commandLog = new ArrayList<>();
+    }
+
+    public void logCommand(String command){
+        commandLog.add(command);
+    }
+
+    public List<String> getCommandLog(){
+        return commandLog;
+    }
+
+    public void setAccountNumber(int accountNumber){
+        this.accountNumber = accountNumber;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
     public double getBalance() {
@@ -41,8 +65,16 @@ public abstract class Account {
         }
     }
 
+    @Override
+    public String toString(){
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        decimalFormat.setRoundingMode(RoundingMode.FLOOR);
+        return ID + " " + decimalFormat.format(balance) + " " + decimalFormat.format(APR);
+    }
+
     public abstract boolean validateDeposit(double amount);
 
     public abstract boolean validateWithdrawal(double amount);
+
 
 }

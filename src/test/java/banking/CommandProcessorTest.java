@@ -276,5 +276,13 @@ public class CommandProcessorTest {
         assertEquals(200, savingsAccount.getBalance());
     }
 
+    @Test
+    void transfer_account_balance_works_as_intended(){
+        checkingAccount.deposit(300);
+        commandProcessor.process("transfer 12345678 12345677 300");
+        assertEquals(300, savingsAccount.getBalance());
+        assertEquals(0, checkingAccount.getBalance());
+    }
+
 
 }

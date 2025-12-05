@@ -201,4 +201,11 @@ public class TransferCommandValidatorTest {
         assertFalse(actual);
     }
 
+    @Test
+    void valid_to_transfer_total_balance(){
+        command = "transfer 11111111 22222222 200".split(" ");
+        boolean actual = validator.validate(command, bank);
+        assertTrue(actual);
+    }
+
 }
