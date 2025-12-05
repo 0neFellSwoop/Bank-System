@@ -6,7 +6,11 @@ public class DepositCommandValidator extends ArgumentValidator {
         if(super.validateCommandLength(parsedCommand, 3)){
             if(super.validateID(parsedCommand[1], bank) && super.validateAmount(parsedCommand[2])){
                 double amount = Double.parseDouble(parsedCommand[2]);
-                return !(amount < 0) && bank.retrieveAccount(parsedCommand[1]).validateDeposit(amount);
+                if(!(amount < 0) && bank.retrieveAccount(parsedCommand[1]).validateDeposit(amount)){
+                    super.logCommand(parsedCommand, bank);
+                    return true;
+                }
+                return false;
             }
             return false;
         }

@@ -17,7 +17,7 @@ public class CommandProcessor {
             case "create":
                 String ID = parsedCommand[2];
                 double APR = Double.parseDouble(parsedCommand[3]);
-                switch(parsedCommand[1]){
+                switch(parsedCommand[1].toLowerCase()){
                     case "checking":
                         BANK.addAccount(new CheckingAccount(ID, APR));
                         break;

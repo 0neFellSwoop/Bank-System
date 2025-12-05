@@ -2,6 +2,8 @@ package banking;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Account {
 
@@ -9,11 +11,21 @@ public abstract class Account {
     private double balance;
     private final String ID;
     private int accountNumber = 0;
+    private List<String> commandLog;
 
     Account(String ID, double APR, double balance){
         this.balance = balance;
         this.APR = APR;
         this.ID = ID;
+        this.commandLog = new ArrayList<>();
+    }
+
+    public void logCommand(String command){
+        commandLog.add(command);
+    }
+
+    public List<String> getCommandLog(){
+        return commandLog;
     }
 
     public void setAccountNumber(int accountNumber){

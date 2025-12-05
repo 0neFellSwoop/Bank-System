@@ -21,8 +21,8 @@ public class MasterControl {
     public List<String> start(List<String> input) {
         for(String command : input){
             if(commandValidator.validate(command)){
-                commandProcessor.process(command);
                 commandStorage.addValidCommand(command);
+                commandProcessor.process(command);
             } else {
                 commandStorage.addInvalidCommand(command);
             }
@@ -36,19 +36,20 @@ public class MasterControl {
         Account account;
         String[] parsedCommand;
         String ID;
+        String commandType;
         for(String command : commandStorage.getValidCommands()){
             parsedCommand = command.split(" ");
-            switch (parsedCommand[0].toLowerCase()){
-                case "create":
-                    newAccounts++;
-                    ID = parsedCommand[2];
-                    if(bank.retrieveAccount(ID) != null) {
-                        account = bank.retrieveAccount(ID);
-                        if(newAccounts == account.getAccountNumber()){
-                            output.add(account.toString());
-                        }
+            commandType = parsedCommand[0].toLowerCase();
+            if(commandType.equals("create")) {
+                newAccounts++;
+                ID = parsedCommand[2];
+                if (bank.retrieveAccount(ID) != null) {
+                    account = bank.retrieveAccount(ID);
+                    if (newAccounts == account.getAccountNumber()) {
+                        output.add(account.toString());
+                        output.addAll(account.getCommandLog());
                     }
-                    break;
+                }
             }
         }
         output.addAll(commandStorage.getInvalidCommands());
