@@ -23,7 +23,7 @@ public class MasterControlTest {
 
     private void assertSingleCommand(String command, List<String> actual){
         assertEquals(1, actual.size());
-        assertEquals(command, actual.getFirst());
+        assertEquals(command, actual.get(0));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals("Checking 12345678 0.00 3.60", actual.getFirst());
+        assertEquals("Checking 12345678 0.00 3.60", actual.get(0));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals("Savings 12345678 0.00 5.00", actual.getFirst());
+        assertEquals("Savings 12345678 0.00 5.00", actual.get(0));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals("Cd 12345678 1000.00 10.00", actual.getFirst());
+        assertEquals("Cd 12345678 1000.00 10.00", actual.get(0));
     }
 
     @Test
@@ -157,7 +157,7 @@ public class MasterControlTest {
 
         List<String> actual = masterControl.start(input);
 
-        assertEquals("Cd 12345678 1000.00 10.00", actual.getFirst());
+        assertEquals("Cd 12345678 1000.00 10.00", actual.get(0));
     }
 
     @Test
