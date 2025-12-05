@@ -212,14 +212,15 @@ public class MasterControlTest {
         input.add("Transfer 98765432 12345678 300");
         input.add("Pass 1");
         input.add("Create cd 23456789 1.2 2000");
+
         List<String> actual = masterControl.start(input);
 
         assertEquals(5, actual.size());
-        assertEquals("Savings 12345678 1000.50 0.60", actual.get(0)); //Savings 12345678 700.35 0.60
+        assertEquals("Savings 12345678 1000.50 0.60", actual.get(0));
         assertEquals("Deposit 12345678 700", actual.get(1));
-        assertEquals("Transfer 98765432 12345678 300", actual.get(2)); //Deposit 12345678 5000
-        assertEquals("Cd 23456789 2000.00 1.20", actual.get(3)); //Deposit 98765432 300
-        assertEquals("Deposit 12345678 5000", actual.get(4)); //Transfer 98765432 12345678 300
+        assertEquals("Transfer 98765432 12345678 300", actual.get(2));
+        assertEquals("Cd 23456789 2000.00 1.20", actual.get(3));
+        assertEquals("Deposit 12345678 5000", actual.get(4));
     }
 
 
@@ -243,5 +244,66 @@ public class MasterControlTest {
 
     }
 
+    @Test
+    void mature_CD_withdrawal(){
+        input.add("Create cD 99999999 10 1200");
+        input.add("pass 1");
+        input.add("pass 65");
+        input.add("Create savings 77777777 .4");
+        input.add("deposit 77777777 500");
+        input.add("Create savings 88888888 3.6");
+        input.add("transfer 77777777 88888888 700");
+        input.add("pass 11");
+        input.add("withdraw 99999999 3000");
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals(5, actual.size());
+        assertEquals("Cd 99999999 0.00 10.00", actual.get(0));
+        assertEquals("withdraw 99999999 3000", actual.get(1));
+        assertEquals("Savings 88888888 516.74 3.60", actual.get(2));
+        assertEquals("transfer 77777777 88888888 700", actual.get(3));
+        assertEquals("pass 65", actual.get(4));
+    }
+
+    @Test
+    void catch_invalid_withdrawals_in_output(){
+        input.add("Create cD 99999999 10 1200");
+        input.add("withdraw 99999999 3000"); //invalid
+        input.add("Create savings 77777777 3.4");
+        input.add("withdraw 77777777 1001"); //invalid
+        input.add("withdraw 77777777 30");
+        input.add("withdraw 77777777 69"); //invalid
+        input.add("Create checking 88888888 .1");
+        input.add("withdraw 88888888 0");
+        input.add("withdraw 88888888 400");
+        input.add("withdraw 88888888 401"); //invalid
+        input.add("withdraw 88888888 -1"); //invalid
+        input.add("withdraw 88888888 abc"); //invalid
+        input.add("withdraw 20 2"); //invalid
+        input.add("withdraw 2"); //invalid
+        input.add("withdraw"); //invalid
+
+        List<String> actual = masterControl.start(input);
+
+        assertEquals(15, actual.size());
+        assertEquals("Cd 99999999 1200.00 10.00", actual.get(0));
+        assertEquals("Savings 77777777 0.00 3.40", actual.get(1));
+        assertEquals("withdraw 77777777 30", actual.get(2));
+        assertEquals("Checking 88888888 0.00 0.10", actual.get(3));
+        assertEquals("withdraw 88888888 0", actual.get(4));
+        assertEquals("withdraw 88888888 400", actual.get(5));
+
+        assertEquals("withdraw 99999999 3000", actual.get(6));
+        assertEquals("withdraw 77777777 1001", actual.get(7));
+        assertEquals("withdraw 77777777 69", actual.get(8));
+        assertEquals("withdraw 88888888 401", actual.get(9));
+        assertEquals("withdraw 88888888 -1", actual.get(10));
+        assertEquals("withdraw 88888888 abc", actual.get(11));
+        assertEquals("withdraw 20 2", actual.get(12));
+        assertEquals("withdraw 2", actual.get(13));
+        assertEquals("withdraw", actual.get(14));
+
+    }
 
 }
